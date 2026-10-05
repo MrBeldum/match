@@ -263,8 +263,13 @@ func Allowable(pattern string) (min, max string) {
 }
 
 // IsPattern returns true if the string is a pattern.
+// Escaped wildcards (\* and \?) are treated as literals, not pattern metacharacters.
 func IsPattern(str string) bool {
 	for i := 0; i < len(str); i++ {
+		if str[i] == '\\' {
+			i++ // skip the escaped character, if any
+			continue
+		}
 		if str[i] == '*' || str[i] == '?' {
 			return true
 		}

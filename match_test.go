@@ -410,9 +410,11 @@ func TestIsPattern(t *testing.T) {
 	patterns := []string{
 		"*", "hello*", "hello*world", "*world",
 		"?", "hello?", "hello?world", "?world",
+		`\**`, `*\*`, `a\?*`,
 	}
 	nonPatterns := []string{
 		"", "hello",
+		`\*`, `\?`, `hello\*`, `\*world`, `a\?b`,
 	}
 	for _, pattern := range patterns {
 		if !IsPattern(pattern) {
